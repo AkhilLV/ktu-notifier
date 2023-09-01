@@ -50,9 +50,14 @@ const handleSubmit = async (e) => {
 
     alert("You will get mails!");
   } catch (err) {
-    alert("Something went wrong. Maybe you already signed up?");
+    alert(
+      "Something went wrong. Maybe you already signed up?" +
+        "\nMessage: " +
+        err.message
+    );
     console.log(err);
   }
 };
 
 form.addEventListener("submit", handleSubmit);
+

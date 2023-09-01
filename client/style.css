@@ -27,6 +27,7 @@ input[type="email"] {
   padding: 10px;
   border: 1px solid #ccc;
   margin-bottom: 20px;
+  border-radius: 5px;
 }
 
 h3 {
@@ -43,11 +44,16 @@ input[type="checkbox"] {
   grid-template-columns: repeat(3, 1fr);
 }
 
+.beta {
+  color: #ccc;
+}
+
 .note {
   margin-bottom: 40px;
   margin-top: 30px;
   background-color: #d3d3d3;
   padding: 10px 20px;
+  border-radius: 5px;
 }
 
 button {
@@ -58,9 +64,15 @@ button {
   cursor: pointer;
   font-family: "Roboto", sans-serif;
   transition: all 200ms ease-in-out;
+  border-radius: 5px;
 }
 
 button:hover {
   transform: translateY(-2px);
 }
 
+@media (max-width: 450px) {
+  button {
+    width: 100%;
+  }
+}
