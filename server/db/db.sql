@@ -20,3 +20,4 @@ CREATE TABLE notification_counter (
 );
 
 INSERT INTO notification_counter VALUES (1, 3014);
+
