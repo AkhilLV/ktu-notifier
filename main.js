@@ -26,18 +26,13 @@ const handleSubmit = async (e) => {
     }
   });
 
-  console.log(filters);
   try {
     const response = await fetch(`${baseUrl}/signup`, {
       method: "POST",
       mode: "cors",
-      cache: "no-cache",
-      credentials: "same-origin",
       headers: {
         "Content-Type": "application/json",
       },
-      redirect: "follow",
-      referrerPolicy: "no-referrer",
       body: JSON.stringify({
         email: emailInput.value,
         filters,
@@ -50,14 +45,10 @@ const handleSubmit = async (e) => {
 
     alert("You will get mails!");
   } catch (err) {
-    alert(
-      "Something went wrong. Maybe you already signed up?" +
-        "\nMessage: " +
-        err.message
-    );
+    console.log("In the catch block");
+    alert("Something went wrong." + "\nMessage: " + err.message);
     console.log(err);
   }
 };
 
 form.addEventListener("submit", handleSubmit);
-
