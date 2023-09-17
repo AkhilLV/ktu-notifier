@@ -4,12 +4,7 @@ import express from "express";
 import cors from "cors";
 import { v4 as uuidv4 } from "uuid";
 
-import {
-  getEmails,
-  insertEmail,
-  insertFilter,
-  closeDatabase,
-} from "./db/Database.js";
+import Database from "./db/Database.js";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -33,10 +28,11 @@ app.post("/signup", async (req, res) => {
   }
 
   try {
-    /**
-     * @type {Object[]}
-     */
-    let result = await getEmails(email);
+    const db = new Database();
+
+    let result = await db.all("SELECT email FROM emails WHERE email = $1", [
+      email,
+    ]);
 
     if (result.length > 0) {
       res.status(400).json({ error: "Enter a unique email" });
@@ -44,12 +40,16 @@ app.post("/signup", async (req, res) => {
     }
 
     const emailUUID = uuidv4();
-    await insertEmail(emailUUID, email);
+    await db.run("INSERT INTO emails VALUES ($1, $2)", [emailUUID, email]);
 
     filters.forEach(async (filter) => {
       const filterUUID = uuidv4();
 
-      await insertFilter(filterUUID, emailUUID, filter);
+      await db.run("INSERT INTO filters VALUES ($1, $2, $3)", [
+        filterUUID,
+        emailUUID,
+        filter,
+      ]);
     });
 
     res.json({ msg: `${email} succesfully signed up` });
