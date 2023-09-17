@@ -2,7 +2,7 @@ import * as cheerio from "cheerio";
 import fs from "fs/promises";
 import axios from "axios";
 
-import pool from "../db/db.js";
+import pool from "../db/Database.js";
 
 import sendEmails from "./email.js";
 

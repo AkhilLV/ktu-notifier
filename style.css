@@ -13,12 +13,12 @@ body {
   margin-top: 20px;
 }
 
-h1 {
-  margin-bottom: 30px;
+header {
+  margin-bottom: 50px;
 }
 
-.subtitle {
-  margin-bottom: 50px;
+h1 {
+  margin-bottom: 30px;
 }
 
 input[type="text"],

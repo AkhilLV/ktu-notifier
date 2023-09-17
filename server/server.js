@@ -9,7 +9,7 @@ import {
   insertEmail,
   insertFilter,
   closeDatabase,
-} from "./db/db.js";
+} from "./db/Database.js";
 
 const app = express();
 const PORT = process.env.PORT || 3000;

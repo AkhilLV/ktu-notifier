@@ -15,4 +15,5 @@ CREATE TABLE IF NOT EXISTS notification_counter (
     counter INT NOT NULL
 );
 
-INSERT INTO notification_counter VALUES (1, 3014);
+-- 3014 is an arbitrary number. Run db.syncNotificationCounter to sync with ktu.com 
+INSERT INTO notification_counter VALUES (1, 3014); 

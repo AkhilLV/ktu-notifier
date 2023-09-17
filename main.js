@@ -29,7 +29,6 @@ const handleSubmit = async (e) => {
   try {
     const response = await fetch(`${baseUrl}/signup`, {
       method: "POST",
-      mode: "cors",
       headers: {
         "Content-Type": "application/json",
       },
@@ -45,7 +44,6 @@ const handleSubmit = async (e) => {
 
     alert("You will get mails!");
   } catch (err) {
-    console.log("In the catch block");
     alert("Something went wrong." + "\nMessage: " + err.message);
     console.log(err);
   }

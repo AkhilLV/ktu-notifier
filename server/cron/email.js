@@ -4,7 +4,7 @@ dotenv.config();
 
 import { google } from "googleapis";
 import nodemailer from "nodemailer";
-import pool from "../db/db.js";
+import pool from "../db/Database.js";
 
 const OAuth2 = google.auth.OAuth2;
 
