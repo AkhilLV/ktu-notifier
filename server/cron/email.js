@@ -48,17 +48,18 @@ const sendEmail = async (emailOptions) => {
   await emailTransporter.sendMail(emailOptions);
 };
 
-const res = await pool.query("SELECT id, email FROM emails");
-const emailList = res.rows;
-
 // a function called sendEmails SHOULD send emails. Change the logic of filtering to somplace else
 
 const sendEmails = async (notifications) => {
+  const db = new Database();
+
+  const res = await db.all("SELECT id, email FROM emails");
+  const emailList = res.rows;
+
   for (const email of emailList) {
-    const res = await pool.query(
-      "SELECT filter FROM filters WHERE email_id = $1",
-      [email.id]
-    );
+    const res = await db.all("SELECT filter FROM filters WHERE email_id = $1", [
+      email.id,
+    ]);
 
     const filters = res.rows.map((row) => row.filter);
 

@@ -2,7 +2,7 @@ import * as cheerio from "cheerio";
 import fs from "fs/promises";
 import axios from "axios";
 
-import pool from "../db/Database.js";
+import Database from "../db/Database.js";
 
 import sendEmails from "./email.js";
 
@@ -47,11 +47,17 @@ const getNotifications = (noOfNotifications = 0, $rows) => {
 async function main() {
   let currentNoOfNotifications;
   let newNoOfNotifications;
+  const db = new Database();
 
-  const res = await pool.query(
-    "SELECT counter FROM notification_counter WHERE counter_id = 1"
-  );
-  currentNoOfNotifications = res.rows[0].counter;
+  try {
+    const res = await db.all(
+      "SELECT counter FROM notification_counter WHERE counter_id = 1"
+    );
+    console.log(res);
+    currentNoOfNotifications = res[0].counter;
+  } catch (err) {
+    throw err;
+  }
 
   let HTML;
   try {
@@ -74,16 +80,22 @@ async function main() {
     return;
   }
 
-  // pool.query(
-  //   "UPDATE notification_counter SET counter = $1 WHERE counter_id = 1",
-  //   [newNoOfNotifications]
-  // );
+  try {
+    db.run(
+      "UPDATE notification_counter SET counter = $1 WHERE counter_id = 1",
+      [newNoOfNotifications]
+    );
+  } catch (err) {
+    throw err;
+  } finally {
+    db.close();
+  }
 
   const noOfNotificationsToFetch =
     newNoOfNotifications - currentNoOfNotifications;
 
   const notifications = getNotifications(noOfNotificationsToFetch, $rows);
-  sendEmails(notifications);
+  // sendEmails(notifications);
 }
 
 main();
